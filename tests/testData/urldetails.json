@@ -4,8 +4,13 @@
       "username": "",
       "password": ""
     },
+    "musto": {
+      "url": "https://www.musto.com/",
+      "username": "",
+      "password": ""
+    },
     "hellyhansen": {
-      "url": "https://staging-shop3.hellyhansen.com/",
+      "url": "https://hellyhansen.com/",
       "username": "hh",
       "password": "alive"
     },

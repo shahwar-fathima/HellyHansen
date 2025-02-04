@@ -1,7 +1,7 @@
 const TestConfig = {
     TEST_ENV: process.env.TEST_ENV || 'qa',
     browser: process.env.browser || 'chromium',
-    brand: process.env.brand || 'musto',
+    brand: process.env.brand || 'mustostg',
     country: process.env.country || 'en_global/'
 
 };

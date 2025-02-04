@@ -1,4 +1,5 @@
 const { expect } = require("playwright/test");
+const { TestConfig } = require('../../config/configProperties')
 
 // pageObjects/LoginPage.js
 class LoginPage {
@@ -12,7 +13,8 @@ class LoginPage {
     }
 
     async verifyLoginPage(){
-        await expect(this.page).toHaveURL("https://newstg.musto.com/en_global/sign-in");
+        let country = TestConfig.country
+        await expect(this.page).toHaveURL("https://newstg.musto.com/${country}/sign-in");
     }
 
     async goToLoginPage() {

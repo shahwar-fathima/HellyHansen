@@ -1,5 +1,7 @@
 const { expect } = require("playwright/test");
 const { BasePage} = require("../pageObjects/BasePage");
+const { TestConfig } = require('../../config/configProperties');
+
 const basePage = new BasePage();
 // pageObjects/ProductPage.js
 class ProductPage {
@@ -36,7 +38,8 @@ async clickOnAddToBag(){
 
 async clickOnGoToCartButton(){
         await this.goToCartButton.click({ force: true });
-        await expect(this.page).toHaveURL("https://newstg.musto.com/en_global/cart");
+        let country = TestConfig.country;
+        await expect(this.page).toHaveURL("https://newstg.musto.com/${country}/cart");
 }
 }
 module.exports = { ProductPage };

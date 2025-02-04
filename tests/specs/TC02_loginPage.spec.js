@@ -75,7 +75,8 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
     const orderConfirmationPage = new OrderConfirmationPage(page)
     const brand = {
         "HH":  urlDetails.hellyhansen.url,
-        "musto": urlDetails.mustostg.url
+        "mustostg": urlDetails.mustostg.url,
+        "musto": urlDetails.musto.url
     }
     
     let url =  brand[TestConfig.brand];
