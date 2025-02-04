@@ -66,7 +66,8 @@ class CheckoutPage {
     } */
 
     async paypalLoginAndOrderConfirmation(){
-        await this.payPalAddEmail.waitFor({state: 'visible'})
+
+        await this.payPalAddEmail.waitFor({state: 'visible',timeout: 30000})
         await this.payPalAddEmail.fill('Buyer-PayPalEURO@hellyhansen.com')
         await this.nextButtonOnPayPalPage.click()
         await this.passwordPayPalInput.fill('PayPalTest24!')

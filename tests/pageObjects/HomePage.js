@@ -49,7 +49,7 @@ class HomePage {
 
     async clickShippingWorldWidePopUpSaveButton(){
         await this.page.waitForLoadState('load')
-        const isVisible = await this.shippingWorldWidePopUp.isVisible()
+        const isVisible = await this.shippingWorldWidePopUpSaveButton.isVisible()
         if (isVisible) {
           console.log('Shipping worldwide form is visible!');
           const saveButton= await this.shippingWorldWidePopUpSaveButton
@@ -60,10 +60,10 @@ class HomePage {
 
     async closeCountryConfirmationPopUp(){
           //await this.page.waitForSelector('input[value="Continue to shop"]')
-          await this.page.waitForLoadState('load')
+          await this.page.waitForLoadState('load');
+          const continueToCountry= await this.continueToCountryButton
           const isVisibleIn = await this.continueToCountryButton.isVisible()
           if(isVisibleIn){
-          const continueToCountry= await this.continueToCountryButton
           await continueToCountry.click()
           return;
         }    

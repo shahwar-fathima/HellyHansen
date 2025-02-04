@@ -23,7 +23,7 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test.only('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@loginpage']}, async function({ page})  {
+test('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@loginpage']}, async function({ page})  {
     const homePage = new HomePage(page)
     const loginPage= new LoginPage(page)
      
@@ -73,7 +73,16 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
     const cartPage = new CartPage(page)
     const checkoutPage = new CheckoutPage(page)
     const orderConfirmationPage = new OrderConfirmationPage(page)
-    const url = urlDetails.mustostg.url;
+    const brand = {
+        "HH":  urlDetails.hellyhansen.url,
+        "mustostg": urlDetails.mustostg.url,
+        "musto": urlDetails.musto.url
+    }
+    
+    let url =  brand[TestConfig.brand];
+     url = url + TestConfig.country
+
+     console.log("url is" + url)
     const searchKeyword = productData.productData.productskeywords;
 
     console.log('Smoke test executed')
