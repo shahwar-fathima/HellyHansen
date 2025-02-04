@@ -1,0 +1,18 @@
+{
+    "mustostg": {
+      "url": "https://newstg.musto.com/en_global/",
+      "username": "",
+      "password": ""
+    },
+    "hellyhansen": {
+      "url": "https://staging-shop3.hellyhansen.com/",
+      "username": "hh",
+      "password": "alive"
+    },
+    "hellyhansenproduction": {
+      "url": "https://www.hellyhansen.com/",
+      "username": "prodUser",
+      "password": "prodPassword123"
+    }
+  }
+  

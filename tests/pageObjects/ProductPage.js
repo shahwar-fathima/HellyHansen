@@ -1,10 +1,12 @@
 const { expect } = require("playwright/test");
-
+const { BasePage} = require("../pageObjects/BasePage");
+const basePage = new BasePage();
 // pageObjects/ProductPage.js
 class ProductPage {
 
     constructor(page) {
         this.page = page;
+       
         this.sizeDropDown = page.locator('div.sizeList-module__root__NszHY');
         this.firstSizeInDropDown = page.locator('#react-select-2-listbox > div:first-child')
         this.addToBagButton = page.locator('div.productFullDetail-module__productInfoActions__aeOrk')
@@ -16,12 +18,15 @@ async selectSizeFromDropDown(){
     await this.page.waitForSelector('div.sizeList-module__root__NszHY');
     await this.sizeDropDown.click()
     console.log('Drop Down clicked')
-    await this.page.waitForTimeout(5000);
+   
+  await this.page.waitForLoadState('load');
+  let sizes = 'div.sizeList-module__menuList__gBzDl.css-qr46ko div:not([aria-disabled="true"])';
+     await this.page.waitForSelector(sizes);
+     const list = await this.page.$$(sizes)
+     const index = basePage.randomElementSelection(list)
+     await list[index].click();
 
-  // Select an option by index
-  // await this.sizeDropDown.selectOption({ index: '1' });
-
-    await this.firstSizeInDropDown.click({ force: true });
+    //await this.firstSizeInDropDown.click({ force: true });
 
 }
 
@@ -30,8 +35,7 @@ async clickOnAddToBag(){
 }
 
 async clickOnGoToCartButton(){
-        await this.goToCartButton.click({ force: true })
-        await this.page.waitForTimeout(5000);
+        await this.goToCartButton.click({ force: true });
         await expect(this.page).toHaveURL("https://newstg.musto.com/en_global/cart");
 }
 }

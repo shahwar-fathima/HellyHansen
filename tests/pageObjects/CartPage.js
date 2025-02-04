@@ -11,11 +11,12 @@ class CartPage {
 
     async proceedToCheckout() {
        // await this.checkoutButton.click({force:true});
-        await this.page.waitForTimeout(5000)
+        await this.proceedToCheckoutButton.waitFor();
         await this.proceedToCheckoutButton.click({ force: true });
     }
 
     async captureProductIdFromCartPage(){
+        await this.productIDCapture.waitFor({ state: "attached" })
         const productID = await this.productIDCapture.textContent()
         return productID;
      
@@ -37,6 +38,7 @@ class CartPage {
     }
 
     async captureTotalAmountFromCartPage(){
+        await this.page.waitForSelector('td.price-summary-total');
         const fullPrice = await this.page.locator('td.price-summary-total').getAttribute('ge-data-converted-full-price');
         const priceTotal1 = fullPrice.replace(/,/g, '');
         const priceTotal = priceTotal1.replace(/\s+/g, '');

@@ -10,6 +10,8 @@ const { CartPage } = require('../pageObjects/CartPage');
 const { CheckoutPage } = require('../pageObjects/CheckoutPage');
 const { OrderConfirmationPage } = require('../pageObjects/OrderConfirmationPage');
 const { TestConfig } = require('../../config/configProperties')
+const  urlDetails  = require('../testData/urldetails.json');
+const productData = require('../testData/productData.json');
 
 //set the environment variables TEST_ENV appropriately
 const environment = process.env.TEST_ENV!= null?process.env.TEST_ENV: TestConfig.TEST_ENV; // "qa" or "staging"
@@ -21,14 +23,13 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@loginpage']}, async function({ page})  {
+test.only('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@loginpage']}, async function({ page})  {
     const homePage = new HomePage(page)
     const loginPage= new LoginPage(page)
      
-    console.log('Smoke test executed')
-    console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
-    await homePage.goToHomePage(); // Navigate to the home page
+    const url = urlDetails.mustostg.url;
+    await homePage.goToHomePage(url); // Navigate to the home page
     console.log('[SUCCESS] URL Launch Successful.....')
     await homePage.acceptAllCookiesButton(); // Close the cookies banner in footer
     console.log('[SUCCESS] Accept cookies banner closed succesfully.....')
@@ -40,7 +41,7 @@ test('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@login
     console.log('[SUCCESS] Clicked on Sign in Link.....')
     await loginPage.verifyLoginPage();
     console.log('[SUCCESS] Login page loaded Successful.....')
-    await loginPage.login('roopsnov89@gmail.com', 'Password@123')
+    await loginPage.login()
     console.log('[SUCCESS] Entered invalid credentials......')
     await loginPage.verifyInvalidLoginMessage()
     console.log('[SUCCESS] Invalid credentials validated......')
@@ -49,10 +50,12 @@ test('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@login
 test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Banner']}, async function({ page }) {
     const homePage = new HomePage(page)
      
-    console.log('Smoke test executed')
+   
     console.log('[INFO] Test Case starts.....')
+ 
     console.log('[INFO] Navigate to the URL.....')
-    await homePage.goToHomePage(); // Navigate to the home page
+    const url = urlDetails.mustostg.url;
+    await homePage.goToHomePage(url); // Navigate to the home page
     console.log('[SUCCESS] URL Launch Successful.....')
     await homePage.acceptAllCookiesButton(); // Close the cookies banner in footer
     console.log('[SUCCESS] Accept cookies banner closed succesfully.....')
@@ -63,18 +66,21 @@ test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Bann
     await homePage.verifySelectedCountry('India')
 }),
 
-test.only('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
+test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
     const homePage = new HomePage(page)
     const searchPage = new SearchPage(page)
     const productPage = new ProductPage(page)
     const cartPage = new CartPage(page)
     const checkoutPage = new CheckoutPage(page)
     const orderConfirmationPage = new OrderConfirmationPage(page)
+    const url = urlDetails.mustostg.url;
+    const searchKeyword = productData.productData.productskeywords;
 
     console.log('Smoke test executed')
     console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
-    await homePage.goToHomePage(); // Navigate to the home page
+    
+    await homePage.goToHomePage(url); // Navigate to the home page
     console.log('[SUCCESS] URL Launch Successful.....')
     await homePage.acceptAllCookiesButton(); // Close the cookies banner in footer
     console.log('[SUCCESS] Accept cookies banner closed succesfully.....')
@@ -82,8 +88,8 @@ test.only('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke
     console.log('[SUCCESS] Pop-up closed Successful.....')
     await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Closed pop-up.....')
-    await homePage.searchIconClick();
-    await homePage.searchProductByKeyword('pants');
+    await homePage.clickonSearchIcon();
+    await homePage.searchProductByKeyword(searchKeyword);
     console.log('[SUCCESS] Landed on Search page.....')
     await searchPage.selectRandomProductFromSearchPage();
     console.log('[SUCCESS] Landed on Search page.....')
@@ -104,7 +110,7 @@ test.only('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke
     expect(productQty).toEqual(productQtyOrderPage)
     expect(productSize).toEqual(productSizeOrderPage)
     expect(totalAmountOrderPage).toContain(totalAmount)
-    await searchPage.waitToCheck();
+   
 
 })
 )

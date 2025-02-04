@@ -13,26 +13,19 @@ class SearchPage {
 
 
 async selectRandomProductFromSearchPage(){
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForLoadState('load');
+    await this.page.waitForSelector('h1.searchPage-module__title__h2Evr');
+    await this.page.waitForSelector('li.productGrid-module__product__qfskE');
     const listOfProducts = await this.page.$$('li.productGrid-module__product__qfskE');
     const count = await listOfProducts.length;
     console.log(`Found ${count} products`);
-    //await this.page.waitForTimeout(5000);
+    
     const randomIndex = Math.floor(Math.random() * listOfProducts.length);
     await listOfProducts[randomIndex].click();
-
-    // for (let i = 0; i < count; i++) {
-    //     const element = locator.nth(1); // Access the nth element
-    //     await element.click(); // Perform an action, e.g., click
-    //     console.log(`Clicked element ${i + 1}`);
-    //     return;
-    //   }
       const url = this.page.url()
-        console.log('Product Url is : ', url)
+      console.log('Product Url is : ', url)
 }
 
-async waitToCheck(){
-    await this.page.waitForTimeout(15000);
-}
+
 }
 module.exports = { SearchPage };

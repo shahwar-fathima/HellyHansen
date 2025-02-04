@@ -24,7 +24,7 @@ class CheckoutPage {
     }
     
     async fillBillingAddressDetailsAndNavigateToPayPal(billingAddress={}){
-        await this.page.waitForTimeout(5000);
+        await this.page.locator('iframe#Intrnl_CO_Container').waitFor({state: 'visible'});
         const iframeElement = await this.page.locator('iframe#Intrnl_CO_Container');
         const iframe = await iframeElement.contentFrame();
         if (iframe) {
@@ -36,10 +36,12 @@ class CheckoutPage {
         await iframe.locator('input#BillingCity').fill(billingAddress.city)
         await iframe.locator('input#BillingZIP').fill(billingAddress.postalCode)
         await iframe.locator('input#CheckoutData_BillingPhone').fill(billingAddress.phoneNumber)
-        await this.page.waitForTimeout(5000);
+        
+        await this.page.waitForLoadState('load');
         await iframe.locator('span[data-title=PayPal]').click()
-        await this.page.waitForTimeout(3000);
-        await iframe.locator('button#btnPay').waitFor({state: 'attached'})
+        await this.page.waitForTimeout(8000);
+        await this.page.waitForLoadState('load');
+        await iframe.locator('button#btnPay').waitFor({state: 'visible'})
         await iframe.locator('button#btnPay').click({ force: true })
     
         }
@@ -63,14 +65,15 @@ class CheckoutPage {
     } */
 
     async paypalLoginAndOrderConfirmation(){
-        await this.page.waitForTimeout(5000)
+        //await this.page.waitForTimeout(5000)
+        await this.payPalAddEmail.waitFor({state: 'visible'})
         await this.payPalAddEmail.fill('Buyer-PayPalEURO@hellyhansen.com')
         await this.nextButtonOnPayPalPage.click()
         await this.passwordPayPalInput.fill('PayPalTest24!')
         await this.loginPayPalButton.click()
         await this.page.locator('button#payment-submit-btn');
         await this.completeThePurchaseOnPayPal.click()
-        await this.page.waitForTimeout(5000)
+        //await this.page.waitForTimeout(5000)
 
     }
 }
