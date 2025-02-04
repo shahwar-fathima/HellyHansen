@@ -92,25 +92,25 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
     await homePage.searchProductByKeyword(searchKeyword);
     console.log('[SUCCESS] Landed on Search page.....')
     await searchPage.selectRandomProductFromSearchPage();
-    console.log('[SUCCESS] Landed on Search page.....')
+    console.log('[SUCCESS] Landed on Product page.....')
     await productPage.selectSizeFromDropDown();
     await productPage.clickOnAddToBag()
     await productPage.clickOnGoToCartButton()
-    const productID = await cartPage.captureProductIdFromCartPage()
-    const productSize = await cartPage.captureProductSizeFromCartPage()
-    const productQty = await cartPage.captureProductQtyFromCartPage()
-    const totalAmount = await cartPage.captureTotalAmountFromCartPage()
-    console.log('[SUCCESS] Product ID on Cart Page.....', productID);
+    console.log('-------get the review ordersummary details in cart page------')
+    const reviewOrderSummary = await cartPage.getOrderValuesFromCartPage(); //get the order summary details from cart page
+ 
+    // Proceed to checkout and complete order
     await cartPage.proceedToCheckout()
     await checkoutPage.fillBillingAddressDetailsAndNavigateToPayPal(testData.billingAddress)
     await checkoutPage.paypalLoginAndOrderConfirmation()
-    const productQtyOrderPage = await orderConfirmationPage.getQtyOfProduct()
-    const productSizeOrderPage = await orderConfirmationPage.getSizeOfProduct()
-    const totalAmountOrderPage = await orderConfirmationPage.getTotalAmountOrderPage();
-    expect(productQty).toEqual(productQtyOrderPage)
-    expect(productSize).toEqual(productSizeOrderPage)
-    expect(totalAmountOrderPage).toContain(totalAmount)
+
+    console.log('-------get the ordersummary details from from order confirmation page-----')
+    const OrderSummary = await orderConfirmationPage.summaryDetailsonConfirmationPage();// get the order summary details from order confirmation page
+    console.log('-------verify order summary details from Order review page and order Confirmation page------')
    
+    // Compare the order summary details
+    await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
+    console.log('------Test Case Ends------');   
 
 })
 )

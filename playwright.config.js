@@ -53,26 +53,26 @@ module.exports = defineConfig({
     //     }
     //   }
     // },
-    // {
-    //   name: 'chromium',
-    //   use: { ...devices['Desktop Chrome'] },
-    // },
+     {
+       name: 'chromium',
+       use: { ...devices['Desktop Chrome'] },
+     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] ,
-    //     headless: false,
+     {
+       name: 'firefox',
+       use: { ...devices['Desktop Firefox'] ,
+         headless: false,
 
-    //   },
-    // },
+       },
+     },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] ,
-    //     headless: false,
-    //     viewport: { width: 1280, height: 720 },
-    //   },
-    // },
+     {
+      name: 'webkit',
+       use: { ...devices['Desktop Safari'] ,
+         headless: false,
+         viewport: { width: 1280, height: 720 },
+       },
+     },
 
   //   /* Test against mobile viewports. */
   //   {
