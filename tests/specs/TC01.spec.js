@@ -1,7 +1,11 @@
-//Example to create a spec file using test data and tagging mechanism
+// Test cases
 
-const { test, expect } = require('@playwright/test');
+const { test, expect, chromium } = require('@playwright/test');
 const { HomePage } = require('../pageObjects/HomePage');
+const { BasePage } = require('../pageObjects/BasePage');
+const { TestConfig } = require('../../config/configProperties')
+const  urlDetails  = require('../testData/urldetails.json');
+const productData = require('../testData/productData.json');
 
 //set the environment variables TEST_ENV appropriately
 const environment = process.env.TEST_ENV?TEST_ENV : 'qa'; // "qa" or "staging"
@@ -28,4 +32,26 @@ test('TC01',{tag : ['@regression']}, async ({ page }) => {
     await homePage.searchForProductByName(testData.productData.productskeywords)
     console.log('[SUCCESS] Search Successful.....')
 
-})
+}),
+
+test('TC02',{tag : ['@regression, @HH, @homepage']}, async () => {
+    const browser = await chromium.launch();  // Launch the browser
+
+    try {
+    if (browser) {
+        const context = await browser.newContext({
+            httpCredentials: {
+                username: 'hh',
+                password: 'alive',
+            },
+        });
+
+        const page = await context.newPage();  // Use the new context for a fresh page
+        await page.goto('https://staging-shop3.hellyhansen.com/');
+
+    }
+} catch(e){
+ console.log("Unable to open a browser",e)
+}
+});
+
