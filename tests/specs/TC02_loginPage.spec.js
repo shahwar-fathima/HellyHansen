@@ -45,7 +45,7 @@ test('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@login
     console.log('[SUCCESS] Entered invalid credentials......')
     await loginPage.verifyInvalidLoginMessage()
     console.log('[SUCCESS] Invalid credentials validated......')
-},
+});
 
 test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Banner']}, async function({ page }) {
     const homePage = new HomePage(page)
@@ -64,7 +64,7 @@ test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Bann
     await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Closed pop-up.....')
     await homePage.verifySelectedCountry('India')
-}),
+});
 
 test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
     const homePage = new HomePage(page)
@@ -85,7 +85,6 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
      console.log("url is" + url)
     const searchKeyword = productData.productData.productskeywords;
 
-    console.log('Smoke test executed')
     console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
     
@@ -118,8 +117,13 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
     const totalAmountOrderPage = await orderConfirmationPage.getTotalAmountOrderPage();
     expect(productQty).toEqual(productQtyOrderPage)
     expect(productSize).toEqual(productSizeOrderPage)
-    expect(totalAmountOrderPage).toContain(totalAmount)
-   
+    expect(totalAmountOrderPage).toContain(totalAmount); 
+    console.log('Order has been placed')
+    
+});
 
-})
-)
+
+  
+
+
+

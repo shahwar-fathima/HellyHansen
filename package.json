@@ -11,13 +11,13 @@
     "test:qa:smoke:Pixel5": "(TEST_ENV=qa npx playwright test tests/specs/ --grep @loginpage --project='Mobile chrome' --reporter=line,allure-playwright || true)",
     "test:qa:smoke:mustoCountry:iPhone12": "(TEST_ENV=qa npx playwright test tests/specs/ --grep @Banner --project='Mobile safari' --reporter=line,allure-playwright || true) && (npm run postTest)"
   },
-
   "keywords": [],
   "author": "GSPANN",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.49.1",
     "@types/node": "^20.12.2",
+    "@zerostep/playwright": "^0.1.5",
     "allure-playwright": "^2.15.0",
     "playwright": "^1.43.1"
   },

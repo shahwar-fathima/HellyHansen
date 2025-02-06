@@ -27,7 +27,8 @@ class OrderConfirmationPage {
 }
 
     async getQtyOfProduct(){
-        const iframe = this.page.locator('iframe#Intrnl_CO_Container').contentFrame();
+        await this.page.locator('iframe#Intrnl_CO_Container').waitFor()
+        const iframe = await this.page.locator('iframe#Intrnl_CO_Container').contentFrame();
         if (iframe) {
                 await this.page.waitForTimeout(5000);
               // Locate the div with "Size" text and get the following sibling's text content
