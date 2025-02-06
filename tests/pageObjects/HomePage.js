@@ -3,8 +3,9 @@ const { expect } = require('@playwright/test');
 
 
 class HomePage {
-    constructor(page) {
+    constructor(page, browser) {
         this.page = page;
+        this.browser = browser;
         this.signInButton = page.locator('button#myaccount');
         this.acceptAllCookies=page.locator('#onetrust-accept-btn-handler');
         // commented locators are of https://staging-shop.hhworkwear.com/ website
@@ -112,6 +113,22 @@ class HomePage {
         console.log("Expected value:", countryName);
         console.log("Actual value:", countrySelected);
         return countrySelected.includes(countryName);
-    }   
+    }  
+    
+    async addLoginDetailstoBrowserPopup_HH() {
+        if (this.browser) {
+            const context = await this.browser.newContext({
+                httpCredentials: {
+                    username: 'hh',
+                    password: 'alive',
+                },
+            });
+
+            const page = await context.newPage();  // Use the new context for a fresh page
+            await page.goto('https://staging-shop3.hellyhansen.com/');
+        } else {
+            console.error('Browser is not defined');
+        }
+    }
 }
 module.exports = { HomePage };

@@ -16,8 +16,7 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 
 test('TC01',{tag : ['@regression']}, async ({ page }) => {
-    let page1;
-    page1 = page;
+
     const homePage = new HomePage(page)
      
     console.log('Smoke and sanity test executed')
@@ -29,4 +28,4 @@ test('TC01',{tag : ['@regression']}, async ({ page }) => {
     await homePage.searchForProductByName(testData.productData.productskeywords)
     console.log('[SUCCESS] Search Successful.....')
 
-});
+})

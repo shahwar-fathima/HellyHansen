@@ -83,7 +83,7 @@ class CheckoutPage {
     } */
 
     async paypalLoginAndOrderConfirmation(){
-        //await this.page.waitForTimeout(5000)
+
         await this.payPalAddEmail.waitFor({state: 'visible',timeout: 30000})
         await this.payPalAddEmail.fill('Buyer-PayPalEURO@hellyhansen.com')
         await this.nextButtonOnPayPalPage.click()
@@ -91,7 +91,6 @@ class CheckoutPage {
         await this.loginPayPalButton.click()
         await this.page.locator('button#payment-submit-btn');
         await this.completeThePurchaseOnPayPal.click()
-        //await this.page.waitForTimeout(5000)
 
     }
 }

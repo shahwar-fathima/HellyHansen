@@ -46,6 +46,20 @@ class CartPage {
         console.log('Total amount from bag page.....', trimPrice);
         return trimPrice; 
     }
+
+    async getOrderValuesFromCartPage() {
+        const reviewOrderSummary = {};
+        // Retrieve order summary details
+        reviewOrderSummary.productID = await this.captureProductIdFromCartPage()
+        reviewOrderSummary.productSize = await this.captureProductSizeFromCartPage()
+        reviewOrderSummary.productQty = await this.captureProductQtyFromCartPage()
+        reviewOrderSummary.totalAmount = await this.captureTotalAmountFromCartPage()
+
+        // Log the order summary details
+        console.log('Order Summary on Cart Page:', reviewOrderSummary);
+
+        return reviewOrderSummary;
+    }
 }
 
 module.exports = { CartPage };

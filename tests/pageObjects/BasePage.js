@@ -13,11 +13,8 @@ class BasePage {
         }
     }
 
-   
+    
 
-    closeCookieBanner(){
-
-    }
 
     async hoverOverElement(){
 

@@ -30,7 +30,7 @@ class LoginPage {
         await this.emailInput.fill(username);
         await this.passwordInput.fill(password);
         await this.submitButton.click();
-        await this.page.waitForTimeout(5000);
+        //await this.page.waitForTimeout(5000);
     }
 
     async verifySuccessfulLogin(expectedUsername) {
