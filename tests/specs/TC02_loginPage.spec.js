@@ -120,5 +120,4 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
     await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
     console.log('------Test Case Ends------');   
 
-})
-)
+});

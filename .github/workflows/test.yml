@@ -30,7 +30,7 @@ jobs:
 
       - name: Run Playwright Tests
         run: |
-            npm run test:qa:regression:safari
+            npm run test:qa:orderplacement:safari
         continue-on-error: true
 
       - name: Generate Allure report
@@ -65,5 +65,5 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
-          user_name: DikshantWM
-          user_email: Dikshant.Agarwal@worldmarket.com
+          user_name: Aakriti
+          user_email: aakriti.kakkar@gspann.com
