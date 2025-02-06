@@ -38,7 +38,7 @@ class CartPage {
     }
 
     async captureTotalAmountFromCartPage(){
-        await this.page.waitForSelector('td.price-summary-total');
+        await this.page.waitForSelector('td.price-summary-total',{timeout: 10000});
         const fullPrice = await this.page.locator('td.price-summary-total').getAttribute('ge-data-converted-full-price');
         const priceTotal1 = fullPrice.replace(/,/g, '');
         const priceTotal = priceTotal1.replace(/\s+/g, '');

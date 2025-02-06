@@ -25,8 +25,8 @@ class OrderConfirmationPage {
 }
 
     async getQtyOfProduct(){
-        await this.page.locator('iframe#Intrnl_CO_Container').waitFor({state: 'visible'});
-        const iframe = this.page.locator('iframe#Intrnl_CO_Container').contentFrame();
+        //await this.page.locator('iframe#Intrnl_CO_Container').waitFor({state: 'visible'})
+        const iframe = await this.page.locator('iframe#Intrnl_CO_Container').contentFrame();
         if (iframe) {
               // Locate the div with "Size" text and get the following sibling's text content
               const productQtyLocator = iframe.locator('div[class*="product-qty"]');

@@ -37,9 +37,10 @@ async clickOnAddToBag(){
 }
 
 async clickOnGoToCartButton(){
+    await this.goToCartButton.waitFor();
         await this.goToCartButton.click({ force: true });
         let country = TestConfig.country;
-        await expect(this.page).toHaveURL("https://newstg.musto.com/${country}/cart");
+        await expect(this.page).toHaveURL(`https://newstg.musto.com/${country}cart`);
 }
 }
 module.exports = { ProductPage };

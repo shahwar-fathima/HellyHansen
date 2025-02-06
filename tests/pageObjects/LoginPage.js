@@ -14,7 +14,7 @@ class LoginPage {
 
     async verifyLoginPage(){
         let country = TestConfig.country
-        await expect(this.page).toHaveURL("https://newstg.musto.com/${country}/sign-in");
+        await expect(this.page).toHaveURL(`https://newstg.musto.com/${country}/sign-in`);
     }
 
     async goToLoginPage() {

@@ -47,26 +47,39 @@ class HomePage {
         await closePopUp.click()
     }
 
+    async  waitForPageLoad(){
+        await this.page.waitForTimeout(10000);
+    }
+
     async clickShippingWorldWidePopUpSaveButton(){
-        await this.page.waitForLoadState('load')
-        const isVisible = await this.shippingWorldWidePopUpSaveButton.isVisible()
-        if (isVisible) {
+        await this.page.waitForLoadState('domcontentloaded')
+        try {
+            //await this.page.waitForSelector('input[value="Continue to shop"]')
+            //const isVisible = await this.shippingWorldWidePopUpSaveButton.isVisible()
+        if (await this.shippingWorldWidePopUpSaveButton.isVisible()) {
           console.log('Shipping worldwide form is visible!');
           const saveButton= await this.shippingWorldWidePopUpSaveButton
           await saveButton.click();
           return;
-        }    
+        } 
+        } catch (e) {
+            console.log("Save button is not visible")
+        }
+           
     }
 
-    async closeCountryConfirmationPopUp(){
-          //await this.page.waitForSelector('input[value="Continue to shop"]')
+    async closeCountryConfirmationPopUp(){         
           await this.page.waitForLoadState('load');
-          const continueToCountry= await this.continueToCountryButton
-          const isVisibleIn = await this.continueToCountryButton.isVisible()
-          if(isVisibleIn){
-          await continueToCountry.click()
-          return;
-        }    
+          try{
+             await this.page.waitForSelector('input[value="Continue to shop"]')
+            if(await this.continueToCountryButton.isVisible()){
+                await await this.continueToCountryButton.click()
+                return;
+            } 
+          }catch(e){
+            console.log('Waited for Continue to save button')
+          }
+            
     }
 
     async goTo() {
