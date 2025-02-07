@@ -48,7 +48,7 @@ module.exports = defineConfig({
     screenshot: {mode: 'on', fullPage: true},
     video: 'on',
     //baseURL : "https://staging-shop.hhworkwear.com/",
-    headless : false,
+    headless : true,
     ignoreHTTPSErrors: true,
     //browserName : "chromium",
     //...devices['Desktop Chrome']
@@ -77,7 +77,6 @@ module.exports = defineConfig({
      {
        name: 'firefox',
        use: { ...devices['Desktop Firefox'] ,
-         headless: false,
 
        },
      },
@@ -85,7 +84,6 @@ module.exports = defineConfig({
      {
       name: 'webkit',
        use: { ...devices['Desktop Safari'] ,
-         headless: false,
          viewport: { width: 1280, height: 720 },
        },
      },
@@ -103,7 +101,7 @@ module.exports = defineConfig({
   // //   /* Test against branded browsers. */
     {
       name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'],headless: false, channel: 'msedge' },
+      use: { ...devices['Desktop Edge'], channel: 'msedge' },
     },
   //   {
   //     name: 'Google Chrome',
