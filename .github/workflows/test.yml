@@ -11,6 +11,12 @@ jobs:
     steps:
       - name: Checkout git repo
         uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
       
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -65,5 +71,5 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
-          user_name: Aakriti
-          user_email: aakriti.kakkar@gspann.com
+          user_name: shahwar-fathima
+          user_email: shahwar.fathima@gspann.com
