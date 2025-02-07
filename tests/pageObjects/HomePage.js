@@ -9,10 +9,10 @@ class HomePage {
         this.signInButton = page.locator('button#myaccount');
         this.acceptAllCookies=page.locator('#onetrust-accept-btn-handler');
         // commented locators are of https://staging-shop.hhworkwear.com/ website
-       /* this.popUp= page.locator('#onetrust-accept-btn-handler');
-        this.searchInput = page.locator('input[name="search_query"]');
+        this.popUp_HH= page.locator('#onetrust-accept-btn-handler');
+       /* this.searchInput = page.locator('input[name="search_query"]');
         this.submitSearch= page.locator('button[title="Submit search"]'); */
-        this.searchLink = page.locator('div.searchField-module__root__oyvn0')
+        this.searchLink = page.locator('div.searchField-module__root__oyvn0, [role="combobox"][aria-label="Search"]')
         this.searchInputBox = page.locator('input[name="q"]')
         this.submitSearch =  page.locator('form[autocomplete="off"] button[type="submit"]')
         this.shippingWorldWidePopUpSaveButton = page.locator('input[value="Save"]');
@@ -42,8 +42,8 @@ class HomePage {
         await acceptCookies.click()
     }
 
-    async closePopUpOnHomePage(){             // Pop-up on home page landing https://staging-shop.hhworkwear.com/
-        const closePopUp= await this.popUp
+    async closePopUpOnHomePage_HH(){             // Pop-up on home page landing https://staging-shop.hhworkwear.com/
+        const closePopUp= await this.popUp_HH
         await closePopUp.click()
     }
 
@@ -87,13 +87,14 @@ class HomePage {
     }
 
     async clickonSearchIcon(){
-        await this.page.waitForLoadState('networkidle');
-        await this.page.getByPlaceholder('What are you looking for?').waitFor({ state: "attached"})
+
+        const combinedLocator = this.page.locator('[role="combobox"][aria-label="Search"], input[placeholder="What are you looking for?"]');
+        // Wait for either of the elements to be attached
+        await combinedLocator.waitFor({ state: 'attached' })
         await this.searchLink.waitFor({ state: "visible"})
-        await this.searchLink.click();      
+        await this.searchLink.click();  
 
     }
-
     
     async searchProductByKeyword(searchkeyword){
         await this.page.getByPlaceholder('What are you looking for?').fill(searchkeyword);

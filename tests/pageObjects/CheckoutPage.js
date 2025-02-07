@@ -31,8 +31,8 @@ class CheckoutPage {
         const iframe = await iframeElement.contentFrame();
         if (iframe) {
             await iframe.locator('#productContainer').waitFor();
-        await expect(iframe.getByLabel('Order Summary')).toBeVisible();
-        await expect(iframe.locator('#productContainer')).toBeVisible();
+        await expect.soft(iframe.getByLabel('Order Summary')).toBeVisible();
+        await expect.soft(iframe.locator('#productContainer')).toBeVisible();
 
         console.log("Data from testdata file ....", billingAddress.firstName)
         await iframe.locator('div#billingFirstName input').fill(billingAddress.firstName, {timeout: 10000})
