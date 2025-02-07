@@ -1,6 +1,8 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
-
+const { on } = require('events');
+import { testPlanFilter } from "allure-playwright/dist/testplan";
+import * as os from "os";
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -22,7 +24,20 @@ module.exports = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: [["html"],
+    ["allure-playwright",
+      {
+        detail: true,
+        outputFolder: "allure-results",
+        environmentInfo: {
+          os_platform: os.platform(),
+          os_release: os.release(),
+          os_version: os.version(),
+          node_version: process.version,
+        },
+      },
+    ],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -30,9 +45,10 @@ module.exports = defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
-    screenshot: 'only-on-failure',
+    screenshot: {mode: 'on', fullPage: true},
+    video: 'on',
     //baseURL : "https://staging-shop.hhworkwear.com/",
-    headless : false,
+    headless : true,
     ignoreHTTPSErrors: true,
     //browserName : "chromium",
     //...devices['Desktop Chrome']
@@ -63,7 +79,6 @@ module.exports = defineConfig({
      {
        name: 'firefox',
        use: { ...devices['Desktop Firefox'] ,
-         headless: false,
 
        },
      },
@@ -71,7 +86,6 @@ module.exports = defineConfig({
      {
       name: 'webkit',
        use: { ...devices['Desktop Safari'] ,
-         headless: false,
          viewport: { width: 1280, height: 720 },
        },
      },
@@ -89,7 +103,7 @@ module.exports = defineConfig({
   // //   /* Test against branded browsers. */
     {
       name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'],headless: false, channel: 'msedge' },
+      use: { ...devices['Desktop Edge'], channel: 'msedge' },
     },
   //   {
   //     name: 'Google Chrome',
