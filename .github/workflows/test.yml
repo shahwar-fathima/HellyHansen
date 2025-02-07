@@ -1,4 +1,4 @@
-name: Daily Regression
+name: Verify order placement scenario
 on:
   # push:
   #   branches:
