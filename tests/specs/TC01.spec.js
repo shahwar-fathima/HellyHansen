@@ -1,5 +1,3 @@
-// Test cases
-
 const { test, expect, chromium } = require('@playwright/test');
 const { HomePage } = require('../pageObjects/HomePage');
 const { BasePage } = require('../pageObjects/BasePage');
@@ -32,4 +30,4 @@ test('TC01',{tag : ['@regression']}, async ({ page }) => {
     await homePage.searchForProductByName(testData.productData.productskeywords)
     console.log('[SUCCESS] Search Successful.....')
 
-}),
+});

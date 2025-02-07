@@ -1,10 +1,13 @@
 const { expect } = require("playwright/test");
+const { HomePage} = require("../pageObjects/HomePage"); 
+let homePage = null;
 
 // pageObjects/CheckoutPage.js
 class CheckoutPage {
 
     constructor(page) {
         this.page = page;
+         homePage = new HomePage(page);
         this.firstNameInput = page.locator('div#billingFirstName input');
         this.lastNameInput = page.locator('input#CheckoutData_BillingLastName');
         this.emailInput = page.locator('input#CheckoutData_Email')
@@ -42,17 +45,18 @@ class CheckoutPage {
         await iframe.locator('input#BillingCity').fill(billingAddress.city)
         await iframe.locator('input#BillingZIP').fill(billingAddress.postalCode)
         await iframe.locator('input#CheckoutData_BillingPhone').fill(billingAddress.phoneNumber)
-         //await this.page.waitForTimeout(4000);
+         await this.page.waitForTimeout(4000);
         await this.page.waitForLoadState('load');
         await iframe.locator('span[data-title=PayPal]').waitFor({ state: "attached", timeout: 60000})
         await iframe.locator('span[data-title=PayPal]').click()
         await iframe.locator('[id="paypalConfirmText"]').waitFor({ state: "attached", timeout: 60000});
         await expect(iframe.locator('[id="paypalConfirmText"]')).toBeVisible();
-        await this.page.waitForTimeout(8000);
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForLoadState('load');
+        homePage.waitForPageLoad()
+        
         try {
            
-            await iframe.locator('button#btnPay').waitFor({state: 'attached', timeout: 60000});
+            await iframe.locator('button#btnPay').waitFor({state: 'visible', timeout: 60000});
             await expect(iframe.locator('button#btnPay')).toBeVisible();
             await iframe.locator('button#btnPay').click({ force: true })
         } catch (e) {
@@ -62,7 +66,7 @@ class CheckoutPage {
             await iframe.locator('button#btnPay').click({ force: true })
         }
         }
-       
+       homePage.waitForPageLoad()
         if(await iframe.locator('button#btnPay').isVisible()){      
             await iframe.locator('button#btnPay').waitFor({state: 'visible'})
             await iframe.locator('button#btnPay').click({ force: true })
