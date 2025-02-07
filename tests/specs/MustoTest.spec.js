@@ -13,6 +13,8 @@ const { TestConfig } = require('../../config/configProperties')
 const  urlDetails  = require('../testData/urldetails.json');
 const productData = require('../testData/productData.json');
 const { url } = require('inspector');
+const { BasePage } = require('../pageObjects/BasePage');
+const basePage = new BasePage();
 
 //set the environment variables TEST_ENV appropriately
 const environment = process.env.TEST_ENV!= null?process.env.TEST_ENV: TestConfig.TEST_ENV; // "qa" or "staging"
@@ -67,27 +69,20 @@ test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Bann
     await homePage.verifySelectedCountry('India')
 });
 
-test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
+test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
     const homePage = new HomePage(page)
     const searchPage = new SearchPage(page)
     const productPage = new ProductPage(page)
     const cartPage = new CartPage(page)
     const checkoutPage = new CheckoutPage(page)
     const orderConfirmationPage = new OrderConfirmationPage(page)
-    const brand = {
-        "HH":  urlDetails.hellyhansen.url,
-        "mustostg": urlDetails.mustostg.url,
-        "musto": urlDetails.musto.url
-    }
-    
-    let url =  brand[TestConfig.brand];
-     url = url + TestConfig.country
-
-     console.log("url is" + url)
+   
     const searchKeyword = productData.productData.productskeywords;
 
     console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
+    
+    let url = basePage.urlFormation();
     
     await homePage.goToHomePage(url); // Navigate to the home page
     console.log('[SUCCESS] URL Launch Successful.....')
@@ -119,7 +114,7 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
     // Compare the order summary details
     await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
     console.log('------Test Case Ends------');   
-})
 
+})
 
 

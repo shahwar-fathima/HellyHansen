@@ -1,6 +1,8 @@
 //Create a base page class and provide all common functions and extend to the other page classes
 
 const { expect } = require("playwright/test");
+const  urlDetails  = require('../testData/urldetails.json');
+const { TestConfig } = require('../../config/configProperties')
 
 class BasePage {
   
@@ -13,9 +15,22 @@ class BasePage {
         }
     }
 
+     urlFormation(){
+        const brand = {
+            "HH":  urlDetails.hellyhansenproduction.url,
+            "HHstg": urlDetails.hellyhansenstg.url,
+            "mustostg": urlDetails.mustostg.url,
+            "musto": urlDetails.musto.url
+
+        }
+        
+        let url =  brand[TestConfig.brand];
+         url = url + TestConfig.country
     
-
-
+         console.log("url is" + url)
+         return url;
+    }
+   
     async hoverOverElement(){
 
     }

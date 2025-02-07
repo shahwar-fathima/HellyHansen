@@ -38,7 +38,7 @@ test('TC01 : Order Confirmation flow',{tag : ['@HH']}, async () => {
         const page = await context.newPage();  // Use the new context for a fresh page
         console.log('[INFO] Test Case starts.....')
         console.log('[INFO] Navigate to the URL.....')
-        await page.goto('https://staging-shop3.hellyhansen.com/');
+ //       await page.goto('https://staging-shop3.hellyhansen.com/');
 
     const homePage = new HomePage(page)
     const searchPage = new SearchPage(page)
@@ -47,7 +47,7 @@ test('TC01 : Order Confirmation flow',{tag : ['@HH']}, async () => {
     const checkoutPage = new CheckoutPage(page)
     const orderConfirmationPage = new OrderConfirmationPage(page)
     const brand = {
-        "HH":  urlDetails.hellyhansen.url,
+        "HH":  urlDetails.hellyhansenstg.url,
         //"mustostg": urlDetails.mustostg.url,
        // "musto": urlDetails.musto.url
     }
@@ -57,6 +57,8 @@ test('TC01 : Order Confirmation flow',{tag : ['@HH']}, async () => {
 
     console.log("url is" + url) 
     const searchKeyword = productData.productData.productskeywords;   
+
+    await homePage.goToHomePage(url)
     await homePage.closePopUpOnHomePage_HH()
     console.log('[SUCCESS] Pop-up closed Successful.....')
     await homePage.closeCountryConfirmationPopUp();
