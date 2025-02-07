@@ -97,7 +97,7 @@ test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfi
     console.log('[SUCCESS] Landed on Search page.....')
     await searchPage.selectRandomProductFromSearchPage();
     console.log('[SUCCESS] Landed on Product page.....')
-    await productPage.selectSizeFromDropDown();
+    await productPage.selectSizeOnProductPage();
     await productPage.clickOnAddToBag()
     await productPage.clickOnGoToCartButton()
     console.log('-------get the review ordersummary details in cart page------')

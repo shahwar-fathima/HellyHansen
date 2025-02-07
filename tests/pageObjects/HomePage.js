@@ -1,5 +1,6 @@
 // pageObjects/HomePage.js
 const { expect } = require('@playwright/test');
+const { TIMEOUT } = require('dns');
 
 
 class HomePage {
@@ -71,7 +72,7 @@ class HomePage {
     async closeCountryConfirmationPopUp(){         
           await this.page.waitForLoadState('load');
           try{
-             await this.page.waitForSelector('input[value="Continue to shop"]')
+             await this.page.waitForSelector('input[value="Continue to shop"]', {timeout : 5000})
             if(await this.continueToCountryButton.isVisible()){
                 await await this.continueToCountryButton.click()
                 return;

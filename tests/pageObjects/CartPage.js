@@ -1,4 +1,4 @@
-//Basic example to show the page object class
+const { expect } = require("playwright/test");
 
 class CartPage {
     constructor(page) {
@@ -12,7 +12,8 @@ class CartPage {
     async proceedToCheckout() {
         //await this.checkoutButton.click({force:true});
         try {
-        await this.proceedToCheckoutButton.click({ force: true });
+        await expect(await this.proceedToCheckoutButton).toBeVisible()  
+        await this.proceedToCheckoutButton.click();
         } catch(e){
             console.log('Not able to click Proceed to checkout button',e)
         }

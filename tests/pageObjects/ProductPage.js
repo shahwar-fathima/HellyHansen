@@ -16,7 +16,7 @@ class ProductPage {
     }
 
 
-async selectSizeFromDropDown(){
+async selectSizeOnProductPage(){
     await this.page.waitForSelector('div.sizeList-module__root__NszHY , div.tileList-tileList-wclp8, div.tileList_tileList__hVmHY');
     
     if(await this.page.locator('div.sizeList-module__root__NszHY').isVisible()){

@@ -1,5 +1,5 @@
 const { test: base } = require('@playwright/test');
-const { aiFixture } = require('@zerostep/playwright');
+//const { aiFixture } = require('@zerostep/playwright');
 
 const test = base.extend({
   ...aiFixture(base),

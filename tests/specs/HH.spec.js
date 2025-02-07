@@ -24,8 +24,6 @@ const testData = require(testDataFilePath);
 
 test('Place an order using paypal as payment type', { tag: ['@HH'] }, async () => {
     const browser = await chromium.launch();  // Launch the browser
-
-    try {
         if (browser) {
             const context = await browser.newContext({
                 httpCredentials: {
@@ -59,7 +57,7 @@ test('Place an order using paypal as payment type', { tag: ['@HH'] }, async () =
             console.log('[SUCCESS] Landed on Search page.....')
             await searchPage.selectRandomProductFromSearchPage();
             console.log('[SUCCESS] Landed on Product page.....')
-            await productPage.selectSizeFromDropDown();
+            await productPage.selectSizeOnProductPage();
             await productPage.clickOnAddToBag()
             await productPage.clickOnGoToCartButton()
             console.log('-------get the review ordersummary details in cart page------')
@@ -79,8 +77,5 @@ test('Place an order using paypal as payment type', { tag: ['@HH'] }, async () =
             console.log('------Test Case Ends------');
 
         }
-    } catch (e) {
-        console.log("Test Case Failed---------", e)
-    }
 });
 
