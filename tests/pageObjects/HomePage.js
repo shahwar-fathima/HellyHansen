@@ -48,7 +48,7 @@ class HomePage {
     }
 
     async  waitForPageLoad(){
-        await this.page.waitForTimeout(10000);
+        await this.page.waitForTimeout(8000);
     }
 
     async clickShippingWorldWidePopUpSaveButton(){
