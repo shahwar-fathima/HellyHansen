@@ -82,10 +82,6 @@ class HomePage {
             
     }
 
-    async goTo() {
-        await this.page.goto('/');
-    }
-
     async clickonSearchIcon(){
 
         const combinedLocator = this.page.locator('[role="combobox"][aria-label="Search"], input[placeholder="What are you looking for?"]');

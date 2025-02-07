@@ -67,7 +67,7 @@ test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Bann
     await homePage.verifySelectedCountry('India')
 });
 
-test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
+test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
     const homePage = new HomePage(page)
     const searchPage = new SearchPage(page)
     const productPage = new ProductPage(page)
@@ -122,7 +122,7 @@ test('TC04 : Order Confirmation flow',{tag : ['@OrderConfirmation', '@smoke']}, 
     console.log('------Test Case Ends------');   
 })
 
-test('TC05',{tag : ['@regression, @HH, @homepage']}, async () => {
+test('TC05',{tag : ['@HH']}, async () => {
     const browser = await chromium.launch();  // Launch the browser
 
     try {
@@ -172,7 +172,7 @@ test('TC05',{tag : ['@regression, @HH, @homepage']}, async () => {
     const reviewOrderSummary = await cartPage.getOrderValuesFromCartPage(); //get the order summary details from cart page
  
     // Proceed to checkout and complete order
-    await cartPage.proceedToCheckout()
+    await cartPage.proceedToCheckout();
     await checkoutPage.fillBillingAddressDetailsAndNavigateToPayPal(testData.billingAddress)
     await checkoutPage.paypalLoginAndOrderConfirmation()
 
